@@ -12,6 +12,10 @@ class CharactersViewController: UIViewController {
 
     @IBOutlet weak var charactersCollectionView: UICollectionView!
     
+    var charactersGateway: CharactersGateway!
+    
+    var characters: [Character] = []
+    
     var randomData = ["01", "02", "03", "04"]
     
     override func viewDidLoad() {
