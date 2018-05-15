@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6A6F921620AB1F5300BCDE18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6F921520AB1F5300BCDE18 /* AppDelegate.swift */; };
-		6A6F921820AB1F5300BCDE18 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6F921720AB1F5300BCDE18 /* ViewController.swift */; };
 		6A6F921B20AB1F5300BCDE18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A6F921920AB1F5300BCDE18 /* Main.storyboard */; };
 		6A6F921D20AB1F5300BCDE18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A6F921C20AB1F5300BCDE18 /* Assets.xcassets */; };
 		6A6F922020AB1F5300BCDE18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A6F921E20AB1F5300BCDE18 /* LaunchScreen.storyboard */; };
@@ -28,7 +27,6 @@
 /* Begin PBXFileReference section */
 		6A6F921220AB1F5300BCDE18 /* marvel-characters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "marvel-characters.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A6F921520AB1F5300BCDE18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6A6F921720AB1F5300BCDE18 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6A6F921A20AB1F5300BCDE18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6A6F921C20AB1F5300BCDE18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6A6F921F20AB1F5300BCDE18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -78,11 +76,9 @@
 			isa = PBXGroup;
 			children = (
 				6A6F921520AB1F5300BCDE18 /* AppDelegate.swift */,
-				6A6F921720AB1F5300BCDE18 /* ViewController.swift */,
-				6A6F921920AB1F5300BCDE18 /* Main.storyboard */,
 				6A6F921C20AB1F5300BCDE18 /* Assets.xcassets */,
-				6A6F921E20AB1F5300BCDE18 /* LaunchScreen.storyboard */,
 				6A6F922120AB1F5300BCDE18 /* Info.plist */,
+				6A6F923520AB21A200BCDE18 /* Storyboards */,
 			);
 			path = "marvel-characters";
 			sourceTree = "<group>";
@@ -94,6 +90,15 @@
 				6A6F922C20AB1F5400BCDE18 /* Info.plist */,
 			);
 			path = "marvel-charactersTests";
+			sourceTree = "<group>";
+		};
+		6A6F923520AB21A200BCDE18 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				6A6F921E20AB1F5300BCDE18 /* LaunchScreen.storyboard */,
+				6A6F921920AB1F5300BCDE18 /* Main.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,7 +204,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A6F921820AB1F5300BCDE18 /* ViewController.swift in Sources */,
 				6A6F921620AB1F5300BCDE18 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
