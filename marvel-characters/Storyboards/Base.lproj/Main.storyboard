@@ -13,7 +13,7 @@
         <!--Favorites-->
         <scene sceneID="uy6-ls-8cU">
             <objects>
-                <viewController title="Favorites" id="IgS-0R-grC" sceneMemberID="viewController">
+                <viewController title="Favorites" id="IgS-0R-grC" customClass="FavoritesViewController" customModule="marvel_characters" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WYO-d1-anP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -29,7 +29,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="favoritesCollectionCell" id="SDs-8M-2vu">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FavoritesCollectionViewCell" id="SDs-8M-2vu">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -57,7 +57,7 @@
         <!--Character-->
         <scene sceneID="7HP-vI-esU">
             <objects>
-                <viewController title="Character" id="ZGO-ZT-E9N" sceneMemberID="viewController">
+                <viewController title="Character" id="ZGO-ZT-E9N" customClass="CharacterViewController" customModule="marvel_characters" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UiG-9r-Af6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -92,7 +92,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="comicsCollectionCell" id="iLD-dp-kUl">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ComicsCollectionViewCell" id="iLD-dp-kUl">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -120,7 +120,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="seriesCollectionCell" id="56I-qF-fwV">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SeriesCollectionViewCell" id="56I-qF-fwV">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -143,40 +143,63 @@
         <!--Characters-->
         <scene sceneID="M6r-Fw-qKU">
             <objects>
-                <viewController title="Characters" id="aM9-zF-LII" sceneMemberID="viewController">
+                <viewController title="Characters" id="aM9-zF-LII" customClass="CharactersViewController" customModule="marvel_characters" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9yS-OV-YTq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="SUo-Ar-Y4Y">
-                                <rect key="frame" x="0.0" y="64" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="SUo-Ar-Y4Y">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="MoH-ey-Vmi">
-                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="itemSize" width="175" height="175"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="charactersCollectionCell" id="nlH-Uf-f1D">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CharactersCollectionViewCell" id="nlH-Uf-f1D">
+                                        <rect key="frame" x="0.0" y="0.0" width="175" height="175"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="175" height="175"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="frD-Os-SDn">
+                                                    <rect key="frame" x="66.5" y="65" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </view>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="frD-Os-SDn" firstAttribute="centerY" secondItem="nlH-Uf-f1D" secondAttribute="centerY" id="OTi-bg-mlt"/>
+                                            <constraint firstItem="frD-Os-SDn" firstAttribute="centerX" secondItem="nlH-Uf-f1D" secondAttribute="centerX" id="xw6-zj-qyT"/>
+                                        </constraints>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="aM9-zF-LII" id="E3a-py-Btm"/>
+                                    <outlet property="delegate" destination="aM9-zF-LII" id="zLY-3Z-hV8"/>
+                                </connections>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gaR-I0-2eo" firstAttribute="bottom" secondItem="SUo-Ar-Y4Y" secondAttribute="bottom" id="Agd-yk-gxG"/>
+                            <constraint firstItem="SUo-Ar-Y4Y" firstAttribute="leading" secondItem="gaR-I0-2eo" secondAttribute="leading" id="lAF-xq-SDe"/>
+                            <constraint firstItem="gaR-I0-2eo" firstAttribute="trailing" secondItem="SUo-Ar-Y4Y" secondAttribute="trailing" id="w4z-Qx-1MM"/>
+                            <constraint firstItem="SUo-Ar-Y4Y" firstAttribute="top" secondItem="gaR-I0-2eo" secondAttribute="top" id="yjj-q6-oNV"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="gaR-I0-2eo"/>
                     </view>
                     <navigationItem key="navigationItem" title="Characters" id="I9q-ip-cRo">
                         <barButtonItem key="backBarButtonItem" title="Back" id="aey-YM-tcy"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="charactersCollectionView" destination="SUo-Ar-Y4Y" id="Gdi-oa-caW"/>
                         <segue destination="ZGO-ZT-E9N" kind="show" identifier="showCharacterDetails" id="LhG-uw-fDH"/>
                     </connections>
                 </viewController>
@@ -242,6 +265,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="vNU-Me-DhJ"/>
+        <segue reference="LhG-uw-fDH"/>
     </inferredMetricsTieBreakers>
 </document>

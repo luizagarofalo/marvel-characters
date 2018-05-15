@@ -10,26 +10,33 @@ import UIKit
 
 class CharactersViewController: UIViewController {
 
+    @IBOutlet weak var charactersCollectionView: UICollectionView!
+    
+    var randomData = ["01", "02", "03", "04"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        charactersCollectionView.register(UINib(nibName: "CharactersCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CharactersCell")
+        
+        let width = (view.frame.size.width - 10) / 2
+        let layout = charactersCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.itemSize = CGSize(width: width, height: width)
     }
+}
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+extension CharactersViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return randomData.count
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CharactersCell", for: indexPath) as? CharactersCollectionViewCell else { return UICollectionViewCell() }
+        
+        if let label = cell.viewWithTag(100) as? UILabel {
+            label.text = randomData[indexPath.row]
+        }
+        
+        return cell
     }
-    */
-
 }
