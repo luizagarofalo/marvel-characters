@@ -23,6 +23,7 @@
 		6A6F924C20AB468C00BCDE18 /* CharactersNetworkGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6F924B20AB468C00BCDE18 /* CharactersNetworkGateway.swift */; };
 		6A87DF9D20ABA8FA004664E2 /* MarvelAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87DF9C20ABA8FA004664E2 /* MarvelAPI.swift */; };
 		6A87DF9F20ABA943004664E2 /* DataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87DF9E20ABA943004664E2 /* DataClass.swift */; };
+		6A87DFA320ACB70F004664E2 /* CharactersMemoryGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87DFA220ACB70F004664E2 /* CharactersMemoryGateway.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		6A6F924D20AB581500BCDE18 /* MD5-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MD5-Bridging-Header.h"; sourceTree = "<group>"; };
 		6A87DF9C20ABA8FA004664E2 /* MarvelAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelAPI.swift; sourceTree = "<group>"; };
 		6A87DF9E20ABA943004664E2 /* DataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataClass.swift; sourceTree = "<group>"; };
+		6A87DFA220ACB70F004664E2 /* CharactersMemoryGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersMemoryGateway.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 			children = (
 				6A6F924920AB460D00BCDE18 /* CharactersGateway.swift */,
 				6A6F924B20AB468C00BCDE18 /* CharactersNetworkGateway.swift */,
+				6A87DFA220ACB70F004664E2 /* CharactersMemoryGateway.swift */,
 			);
 			path = Gateways;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				6A6F924120AB326100BCDE18 /* CharactersCollectionViewCell.swift in Sources */,
 				6A6F924820AB441A00BCDE18 /* Thumbnail.swift in Sources */,
 				6A6F921620AB1F5300BCDE18 /* AppDelegate.swift in Sources */,
+				6A87DFA320ACB70F004664E2 /* CharactersMemoryGateway.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

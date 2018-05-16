@@ -20,7 +20,7 @@ class CharactersViewController: UIViewController {
         }
     }
     
-    var charactersGateway = CharactersNetworkGateway()
+    var charactersGateway = CharactersMemoryGateway()
     
     override func viewDidLoad() {
         super.viewDidLoad()
