@@ -14,11 +14,11 @@ struct CharactersNetworkGateway: CharactersGateway {
     let publicKey = "cd474e2e09099fd47b15c4f50c28e30d"
     let privateKey = "f8ba8e7d55cb57727b02bcb70174555c24fe24c4"
     
-    var key: String {
+    var hash: String {
         let combined = "\(ts)\(privateKey)\(publicKey)"
         let md5Data = MD5(string: combined)
-        
         let md5Hex =  md5Data.map { String(format: "%02hhx", $0) }.joined()
+        
         return md5Hex
     }
     
@@ -31,11 +31,12 @@ struct CharactersNetworkGateway: CharactersGateway {
                 CC_MD5(messageBytes, CC_LONG(messageData.count), digestBytes)
             }
         }
+        
         return digestData
     }
     
     func allCharacters(onComplete: @escaping ([Character]) -> Void) {
-        guard let url = URL(string: "https://gateway.marvel.com:443/v1/public/characters" + key) else { return }
+        guard let url = URL(string: "https://gateway.marvel.com:443/v1/public/characters?apikey=\(publicKey)&hash=\(hash)&ts=\(ts)") else { return }
         let session = URLSession(configuration: URLSessionConfiguration.default)
         let task = session.dataTask(with: url) { (data, response, error) in
             if let error = error {
@@ -46,9 +47,8 @@ struct CharactersNetworkGateway: CharactersGateway {
             guard let data = data else { return }
             
             do {
-                let characters = try JSONDecoder().decode([Character].self, from: data)
-                print("Number of characters: \(characters.count)")
-                onComplete(characters)
+                let characters = try JSONDecoder().decode(MarvelAPI.self, from: data)
+                onComplete(characters.data.results)
             } catch {
                 print("Error: \(error)")
             }

@@ -9,14 +9,18 @@
 import UIKit
 
 class CharactersViewController: UIViewController {
-
+    
     @IBOutlet weak var charactersCollectionView: UICollectionView!
     
-    var charactersGateway: CharactersGateway!
+    var characters: [Character] = [] {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                self?.charactersCollectionView.reloadData()
+            }
+        }
+    }
     
-    var characters: [Character] = []
-    
-    var randomData = ["01", "02", "03", "04"]
+    var charactersGateway = CharactersNetworkGateway()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,19 +30,29 @@ class CharactersViewController: UIViewController {
         let width = (view.frame.size.width - 10) / 2
         let layout = charactersCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: width, height: width)
+        
+        loadData()
+    }
+    
+    func loadData() {
+        charactersGateway.allCharacters(onComplete: updateCharacters)
+    }
+    
+    func updateCharacters(characters: [Character]) {
+        self.characters = characters
     }
 }
 
 extension CharactersViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return randomData.count
+        return characters.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CharactersCell", for: indexPath) as? CharactersCollectionViewCell else { return UICollectionViewCell() }
         
         if let label = cell.viewWithTag(100) as? UILabel {
-            label.text = randomData[indexPath.row]
+            label.text = characters[indexPath.row].name
         }
         
         return cell
