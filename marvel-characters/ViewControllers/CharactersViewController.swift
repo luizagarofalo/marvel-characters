@@ -27,7 +27,7 @@ class CharactersViewController: UIViewController {
         
         charactersCollectionView.register(UINib(nibName: "CharactersCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CharactersCell")
         
-        let width = (view.frame.size.width - 10) / 2
+        let width = (view.frame.size.width - 50) / 2
         let layout = charactersCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: width, height: width)
         
