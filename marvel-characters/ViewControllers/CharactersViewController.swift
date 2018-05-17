@@ -9,9 +9,9 @@
 import UIKit
 
 class CharactersViewController: UIViewController {
-    
+
     @IBOutlet weak var charactersCollectionView: UICollectionView!
-    
+
     var characters: [Character] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
@@ -19,25 +19,26 @@ class CharactersViewController: UIViewController {
             }
         }
     }
-    
+
     var charactersGateway = CharactersNetworkGateway()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        charactersCollectionView.register(UINib(nibName: "CharactersCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CharactersCell")
-        
+
+        charactersCollectionView.register(UINib(nibName: "CharactersCollectionViewCell", bundle: nil),
+                                          forCellWithReuseIdentifier: "CharactersCell")
+
         let width = (view.frame.size.width - 50) / 2
-        let layout = charactersCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let layout = (charactersCollectionView.collectionViewLayout as? UICollectionViewFlowLayout)!
         layout.itemSize = CGSize(width: width, height: width)
-        
+
         loadData()
     }
-    
+
     func loadData() {
         charactersGateway.allCharacters(onComplete: updateCharacters)
     }
-    
+
     func updateCharacters(characters: [Character]) {
         self.characters = characters
     }
@@ -47,14 +48,19 @@ extension CharactersViewController: UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return characters.count
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CharactersCell", for: indexPath) as? CharactersCollectionViewCell else { return UICollectionViewCell() }
-        
+
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CharactersCell",
+                                                            for: indexPath) as? CharactersCollectionViewCell else {
+                                                                return UICollectionViewCell()
+        }
+
         if let label = cell.viewWithTag(100) as? UILabel {
             label.text = characters[indexPath.row].name
         }
-        
+
         return cell
     }
 }

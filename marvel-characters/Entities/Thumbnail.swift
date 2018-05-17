@@ -11,7 +11,7 @@ import Foundation
 struct Thumbnail: Decodable {
     let path: String?
     let thumbnailExtension: Extension?
-    
+
     enum CodingKeys: String, CodingKey {
         case path
         case thumbnailExtension = "extension"

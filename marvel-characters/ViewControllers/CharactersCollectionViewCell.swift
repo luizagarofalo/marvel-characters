@@ -12,11 +12,11 @@ class CharactersCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var characterImage: UIImageView!
     @IBOutlet weak var characterName: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
+
     @IBAction func saveCharacter(_ sender: UIButton) {
     }
 }

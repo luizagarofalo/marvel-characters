@@ -11,7 +11,7 @@ import UIKit
 class FavoritesViewController: UIViewController {
 
     @IBOutlet weak var favoritesCollectionView: UICollectionView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
