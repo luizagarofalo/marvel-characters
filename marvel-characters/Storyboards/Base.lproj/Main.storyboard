@@ -51,7 +51,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="favoritesCollectionView" destination="ykE-71-79S" id="it4-rJ-afx"/>
-                        <segue destination="ZGO-ZT-E9N" kind="show" identifier="showCharacterDetails" id="vNU-Me-DhJ"/>
+                        <segue destination="ZGO-ZT-E9N" kind="show" identifier="showCharacter" id="vNU-Me-DhJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CDR-BP-u2d" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -217,7 +217,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="charactersCollectionView" destination="SUo-Ar-Y4Y" id="Gdi-oa-caW"/>
-                        <segue destination="ZGO-ZT-E9N" kind="show" identifier="showCharacterDetails" id="LhG-uw-fDH"/>
+                        <segue destination="ZGO-ZT-E9N" kind="show" identifier="showCharacter" id="LhG-uw-fDH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IAm-mX-xjT" userLabel="First Responder" sceneMemberID="firstResponder"/>

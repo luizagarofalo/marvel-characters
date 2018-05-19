@@ -18,6 +18,9 @@ class CharacterViewController: UIViewController {
     let comics = ["Comics 01", "Comics 02", "Comics 03", "Comics 04"]
     let series = ["Series 01", "Series 02", "Series 03", "Series 04", "Series 05", "Series 06"]
 
+    var characterName = ""
+    var requestsGateway = RequestsNetworkGateway()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

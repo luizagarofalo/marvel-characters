@@ -20,7 +20,7 @@ class CharactersViewController: UIViewController {
         }
     }
 
-    var charactersGateway = RequestsNetworkGateway()
+    var requestsGateway = RequestsNetworkGateway()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ class CharactersViewController: UIViewController {
     }
 
     func loadData() {
-        charactersGateway.loadCharacters(updateCharacters)
+        requestsGateway.loadCharacters(updateCharacters)
     }
 
     func updateCharacters(characters: [Result]) {
@@ -62,5 +62,19 @@ extension CharactersViewController: UICollectionViewDataSource, UICollectionView
         }
 
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let character = self.characters[indexPath.row]
+        self.performSegue(withIdentifier: "showCharacter", sender: character)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let characterViewController = segue.destination as? CharacterViewController {
+            if let character = sender as? Result {
+                characterViewController.characterName = character.name!
+                characterViewController.title = character.name!
+            }
+        }
     }
 }
