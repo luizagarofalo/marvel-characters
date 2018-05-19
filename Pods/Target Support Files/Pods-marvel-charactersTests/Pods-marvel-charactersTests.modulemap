@@ -1,0 +1,6 @@
+framework module Pods_marvel_charactersTests {
+  umbrella header "Pods-marvel-charactersTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
