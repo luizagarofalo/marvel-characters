@@ -72,8 +72,10 @@ extension CharactersViewController: UICollectionViewDataSource, UICollectionView
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let characterViewController = segue.destination as? CharacterViewController {
             if let character = sender as? Result {
-                characterViewController.characterName = character.name!
                 characterViewController.title = character.name!
+                characterViewController.id = character.id!
+                characterViewController.requestsGateway = RequestsNetworkGateway()
+                characterViewController.loadData()
             }
         }
     }
