@@ -1,5 +1,5 @@
 //
-//  CharactersNetworkGateway.swift
+//  RequestsNetworkGateway.swift
 //  marvel-characters
 //
 //  Created by Luiza Collado Garofalo on 15/05/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CharactersNetworkGateway: CharactersGateway {
+struct RequestsNetworkGateway: RequestsGateway {
 
     let ts = 1
     let publicKey = "cd474e2e09099fd47b15c4f50c28e30d"
@@ -35,8 +35,30 @@ struct CharactersNetworkGateway: CharactersGateway {
         return digestData
     }
 
-    func allCharacters(onComplete: @escaping ([Character]) -> Void) {
+    func loadCharacters(_ onComplete: @escaping ([Result]) -> Void) {
         guard let url = URL(string: "https://gateway.marvel.com:443/v1/public/characters?apikey=" +
+            "\(publicKey)&hash=\(hash)&ts=\(ts)") else { return }
+        let session = URLSession(configuration: URLSessionConfiguration.default)
+        let task = session.dataTask(with: url) { (data, _, error) in
+            if let error = error {
+                print(error)
+                return
+            }
+
+            guard let data = data else { return }
+
+            do {
+                let characters = try JSONDecoder().decode(MarvelAPI.self, from: data)
+                onComplete(characters.data.results)
+            } catch {
+                print("Error: \(error)")
+            }
+        }
+        task.resume()
+    }
+
+    func loadComics(id: Int, _ onComplete: @escaping ([Result]) -> Void) {
+        guard let url = URL(string: "https://gateway.marvel.com:443/v1/public/characters/\(id)/comics?apikey=" +
             "\(publicKey)&hash=\(hash)&ts=\(ts)") else { return }
         let session = URLSession(configuration: URLSessionConfiguration.default)
         let task = session.dataTask(with: url) { (data, _, error) in

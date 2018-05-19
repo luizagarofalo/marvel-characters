@@ -9,5 +9,5 @@
 import Foundation
 
 struct DataClass: Decodable {
-    let results: [Character]
+    let results: [Result]
 }

@@ -12,7 +12,7 @@ class CharactersViewController: UIViewController {
 
     @IBOutlet weak var charactersCollectionView: UICollectionView!
 
-    var characters: [Character] = [] {
+    var characters: [Result] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 self?.charactersCollectionView.reloadData()
@@ -20,7 +20,7 @@ class CharactersViewController: UIViewController {
         }
     }
 
-    var charactersGateway = CharactersNetworkGateway()
+    var charactersGateway = RequestsNetworkGateway()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,10 +36,10 @@ class CharactersViewController: UIViewController {
     }
 
     func loadData() {
-        charactersGateway.allCharacters(onComplete: updateCharacters)
+        charactersGateway.loadCharacters(updateCharacters)
     }
 
-    func updateCharacters(characters: [Character]) {
+    func updateCharacters(characters: [Result]) {
         self.characters = characters
     }
 }
