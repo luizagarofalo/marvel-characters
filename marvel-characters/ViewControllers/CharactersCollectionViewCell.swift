@@ -16,9 +16,11 @@ class CharactersCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var saveButton: UIButton!
 
     let realm = try! Realm() // swiftlint:disable:this force_try
+    var favorites: Results<Favorite>?
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        favorites = realm.objects(Favorite.self)
     }
 
     @IBAction func saveCharacter(_ sender: UIButton) {
@@ -26,15 +28,28 @@ class CharactersCollectionViewCell: UICollectionViewCell {
         let favorite = Favorite()
         favorite.name = characterName.text!
 
-        do {
-            try realm.write {
-                realm.add(favorite)
-                print("Character added.")
+        if (favorites?.contains(where: { $0.name == favorite.name }))! {
+            do {
+                try realm.write {
+                    let character = realm.objects(Favorite.self).filter("name = %@", favorite.name)
+                    realm.delete(character)
+                    saveButton.setImage(#imageLiteral(resourceName: "Favorites 01"), for: .normal)
+                    print("Character removed from favorites.")
+                }
+            } catch {
+                print("Error removing character from favorites: \(error)")
             }
-        } catch {
-            print("Error saving character: \(error).")
-        }
+        } else {
 
-        saveButton.setImage(#imageLiteral(resourceName: "Favorites 02"), for: .normal)
+            do {
+                try realm.write {
+                    realm.add(favorite)
+                    saveButton.setImage(#imageLiteral(resourceName: "Favorites 02"), for: .normal)
+                    print("Character added to favorites.")
+                }
+            } catch {
+                print("Error adding character to favorites: \(error).")
+            }
+        }
     }
 }

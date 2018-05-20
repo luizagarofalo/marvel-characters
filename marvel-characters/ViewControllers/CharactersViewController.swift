@@ -6,11 +6,14 @@
 //  Copyright © 2018 Luiza Garofalo. All rights reserved.
 //
 
+import RealmSwift
 import UIKit
 
 class CharactersViewController: UIViewController {
 
     @IBOutlet weak var charactersCollectionView: UICollectionView!
+
+    let realm = try! Realm() // swiftlint:disable:this force_try
 
     var characters: [Result] = [] {
         didSet {
@@ -20,7 +23,13 @@ class CharactersViewController: UIViewController {
         }
     }
 
+    var favorites: Results<Favorite>?
     var requestsGateway = RequestsNetworkGateway()
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        charactersCollectionView.reloadData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +41,7 @@ class CharactersViewController: UIViewController {
         let layout = (charactersCollectionView.collectionViewLayout as? UICollectionViewFlowLayout)!
         layout.itemSize = CGSize(width: width, height: width)
 
+        favorites = realm.objects(Favorite.self)
         loadData()
     }
 
@@ -57,8 +67,12 @@ extension CharactersViewController: UICollectionViewDataSource, UICollectionView
                                                                 return UICollectionViewCell()
         }
 
-        if let label = cell.viewWithTag(100) as? UILabel {
-            label.text = characters[indexPath.row].name
+        cell.characterName.text = characters[indexPath.row].name
+
+        if (favorites?.contains(where: { $0.name == characters[indexPath.row].name }))! {
+            cell.saveButton.setImage(#imageLiteral(resourceName: "Favorites 02"), for: .normal)
+        } else {
+            cell.saveButton.setImage(#imageLiteral(resourceName: "Favorites 01"), for: .normal)
         }
 
         return cell
