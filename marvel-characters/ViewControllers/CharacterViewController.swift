@@ -6,6 +6,7 @@
 //  Copyright © 2018 Luiza Garofalo. All rights reserved.
 //
 
+import SDWebImage
 import UIKit
 
 class CharacterViewController: UIViewController {
@@ -81,9 +82,8 @@ extension CharacterViewController: UICollectionViewDataSource, UICollectionViewD
                                                                     return UICollectionViewCell()
             }
 
-            if let label = cell.viewWithTag(100) as? UILabel {
-                label.text = comics[indexPath.row].title
-            }
+            cell.comicsName.text = comics[indexPath.row].title
+            cell.comicsImage.sd_setImage(with: URL(string: (comics[indexPath.row].thumbnail?.path)! + "." + (comics[indexPath.row].thumbnail?.thumbnailExtension)!.rawValue), placeholderImage: UIImage(named: "iconPlaceholder"), options: .highPriority, completed: nil) // swiftlint:disable:this line_length
 
             return cell
         } else {
@@ -92,9 +92,8 @@ extension CharacterViewController: UICollectionViewDataSource, UICollectionViewD
                                                                     return UICollectionViewCell()
             }
 
-            if let label = cell.viewWithTag(100) as? UILabel {
-                label.text = series[indexPath.row].title
-            }
+            cell.seriesName.text = series[indexPath.row].title
+            cell.seriesImage.sd_setImage(with: URL(string: (series[indexPath.row].thumbnail?.path)! + "." + (series[indexPath.row].thumbnail?.thumbnailExtension)!.rawValue), placeholderImage: UIImage(named: "iconPlaceholder"), options: .highPriority, completed: nil) // swiftlint:disable:this line_length
 
             return cell
         }

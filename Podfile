@@ -7,6 +7,7 @@ target 'marvel-characters' do
 
   # Pods for marvel-characters
   pod 'RealmSwift'
+  pod ‘SDWebImage’
 
   target 'marvel-charactersTests' do
     inherit! :search_paths
