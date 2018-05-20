@@ -16,7 +16,6 @@ struct Result: Decodable {
 }
 
 enum CodingKeys: String, CodingKey {
-    case id
     case digitalID = "digitalId"
-    case title, thumbnail
+    case description, id, name, title, thumbnail
 }

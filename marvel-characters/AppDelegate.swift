@@ -6,6 +6,7 @@
 //  Copyright © 2018 Luiza Garofalo. All rights reserved.
 //
 
+import RealmSwift
 import UIKit
 
 @UIApplicationMain
@@ -15,6 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+        do {
+            _ = try Realm()
+        } catch {
+            print("Error initialising new realm, \(error)")
+        }
+
         return true
     }
 

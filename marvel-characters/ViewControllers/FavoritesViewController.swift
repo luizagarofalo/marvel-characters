@@ -6,13 +6,20 @@
 //  Copyright © 2018 Luiza Garofalo. All rights reserved.
 //
 
+import RealmSwift
 import UIKit
 
 class FavoritesViewController: UIViewController {
 
     @IBOutlet weak var favoritesCollectionView: UICollectionView!
 
-    var favorites = ["Favorite 01", "Favorite 02", "Favorite 03", "Favorite 04"]
+    let realm = try! Realm() // swiftlint:disable:this force_try
+    var favorites: Results<Favorite>?
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        favoritesCollectionView.reloadData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,12 +30,14 @@ class FavoritesViewController: UIViewController {
         let width = (view.frame.size.width - 50) / 2
         let layout = (favoritesCollectionView.collectionViewLayout as? UICollectionViewFlowLayout)!
         layout.itemSize = CGSize(width: width, height: width)
+
+        favorites = realm.objects(Favorite.self)
     }
 }
 
 extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return favorites.count
+        return favorites?.count ?? 1
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -38,8 +47,10 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
                                                                 return UICollectionViewCell()
         }
 
+        cell.saveButton.setImage(#imageLiteral(resourceName: "Favorites 02"), for: .normal)
+
         if let label = cell.viewWithTag(100) as? UILabel {
-            label.text = favorites[indexPath.row]
+            label.text = favorites?[indexPath.row].name
         }
 
         return cell
