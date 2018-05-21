@@ -9,7 +9,7 @@
 import Foundation
 
 protocol RequestsGateway {
-    func loadCharacters(_ onComplete: @escaping ([Result]) -> Void)
+    func loadCharacters(limit: Int, offset: Int, _ onComplete: @escaping ([Result]) -> Void)
     func loadCharacter(id: Int, _ onComplete: @escaping ([Result]) -> Void)
     func loadComics(id: Int, _ onComplete: @escaping ([Result]) -> Void)
     func loadSeries(id: Int, _ onComplete: @escaping ([Result]) -> Void)

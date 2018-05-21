@@ -35,9 +35,10 @@ struct RequestsNetworkGateway: RequestsGateway {
         return digestData
     }
 
-    func loadCharacters(_ onComplete: @escaping ([Result]) -> Void) {
-        guard let url = URL(string: "https://gateway.marvel.com:443/v1/public/characters?apikey=" +
-            "\(publicKey)&hash=\(hash)&ts=\(ts)") else { return }
+    func loadCharacters(limit: Int, offset: Int, _ onComplete: @escaping ([Result]) -> Void) {
+
+        guard let url = URL(string: "https://gateway.marvel.com:443/v1/public/characters?orderBy=name&limit=\(limit)" +
+            "&offset=\(offset)&apikey=\(publicKey)&hash=\(hash)&ts=\(ts)") else { return }
         let session = URLSession(configuration: URLSessionConfiguration.default)
         let task = session.dataTask(with: url) { (data, _, error) in
             if let error = error {

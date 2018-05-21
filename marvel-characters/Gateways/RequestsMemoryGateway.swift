@@ -22,7 +22,7 @@ struct RequestsMemoryGateway: RequestsGateway {
     let series = [Result(id: 1945, digitalID: nil, name: nil, description: nil, title: "Avengers: The Initiative (2007 - 2010)", thumbnail: Thumbnail(path: "http://i.annihil.us/u/prod/marvel/i/mg/5/a0/514a2ed3302f5", thumbnailExtension: .jpg)),
                   Result(id: 2005, digitalID: nil, name: nil, description: "Wade Wilson: Heartless Merc With a Mouth or...hero? Laugh, cry and applaud at full volume for the mind-bending adventures of Deadpool, exploring the psyche and crazed adventures of Marvel's most unstable personality!", title: "Deadpool (1997 - 2002)", thumbnail: Thumbnail(path: "http://i.annihil.us/u/prod/marvel/i/mg/7/03/5130f646465e3", thumbnailExtension: .jpg))]
 
-    func loadCharacters(_ onComplete: @escaping ([Result]) -> Void) {
+    func loadCharacters(limit: Int, offset: Int, _ onComplete: @escaping ([Result]) -> Void) {
         onComplete(characters)
     }
 

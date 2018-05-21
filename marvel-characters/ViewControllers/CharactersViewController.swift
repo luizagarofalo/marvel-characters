@@ -27,6 +27,11 @@ class CharactersViewController: UIViewController {
     var favorites: Results<Favorite>?
     var requestsGateway = RequestsNetworkGateway()
 
+    // Pagination:
+    var isLoadingNext = false
+    var limit = 20
+    var offset = 0
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         charactersCollectionView.reloadData()
@@ -47,15 +52,15 @@ class CharactersViewController: UIViewController {
     }
 
     func loadData() {
-        requestsGateway.loadCharacters(updateCharacters)
+        requestsGateway.loadCharacters(limit: limit, offset: offset, updateCharacters)
     }
 
     func updateCharacters(characters: [Result]) {
-        self.characters = characters
+        self.characters += characters
     }
 }
 
-extension CharactersViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension CharactersViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return characters.count
     }
@@ -85,6 +90,21 @@ extension CharactersViewController: UICollectionViewDataSource, UICollectionView
         }
 
         return cell
+    }
+
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        isLoadingNext = false
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if ((charactersCollectionView.contentOffset.y + charactersCollectionView.frame.size.height)
+            >= charactersCollectionView.contentSize.height) {
+            if !isLoadingNext {
+                isLoadingNext = true
+                self.offset += self.limit
+                loadData()
+            }
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

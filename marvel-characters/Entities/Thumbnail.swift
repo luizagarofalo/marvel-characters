@@ -21,4 +21,5 @@ struct Thumbnail: Decodable {
 enum Extension: String, Decodable {
     case gif = "gif"
     case jpg = "jpg"
+    case png = "png"
 }
