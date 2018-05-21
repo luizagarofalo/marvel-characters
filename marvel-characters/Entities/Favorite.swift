@@ -13,6 +13,5 @@ import RealmSwift
 class Favorite: Object {
     @objc dynamic var id = 0
     @objc dynamic var name = ""
-    @objc dynamic var favDescription = ""
     @objc dynamic var thumbnail = ""
 }

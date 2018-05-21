@@ -68,8 +68,15 @@ extension CharactersViewController: UICollectionViewDataSource, UICollectionView
                                                                 return UICollectionViewCell()
         }
 
+        let thumbnail = ((characters[indexPath.row].thumbnail?.path)! + "." +
+            (characters[indexPath.row].thumbnail?.thumbnailExtension)!.rawValue)
+
+        cell.id = characters[indexPath.row].id!
+        cell.thumbnail = thumbnail
         cell.characterName.text = characters[indexPath.row].name
-        cell.characterImage.sd_setImage(with: URL(string: (characters[indexPath.row].thumbnail?.path)! + "." + (characters[indexPath.row].thumbnail?.thumbnailExtension)!.rawValue), placeholderImage: UIImage(named: "iconPlaceholder"), options: .highPriority, completed: nil) // swiftlint:disable:this line_length
+        cell.characterImage.sd_setImage(with: URL(string: thumbnail),
+                                        placeholderImage: UIImage(named: "iconPlaceholder"),
+                                        options: .highPriority, completed: nil)
 
         if (favorites?.contains(where: { $0.name == characters[indexPath.row].name }))! {
             cell.saveButton.setImage(#imageLiteral(resourceName: "Favorites 02"), for: .normal)

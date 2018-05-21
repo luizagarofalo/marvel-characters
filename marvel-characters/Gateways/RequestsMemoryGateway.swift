@@ -26,6 +26,10 @@ struct RequestsMemoryGateway: RequestsGateway {
         onComplete(characters)
     }
 
+    func loadCharacter(id: Int, _ onComplete: @escaping ([Result]) -> Void) {
+        onComplete(characters)
+    }
+
     func loadComics(id: Int, _ onComplete: @escaping ([Result]) -> Void) {
         onComplete(comics)
     }

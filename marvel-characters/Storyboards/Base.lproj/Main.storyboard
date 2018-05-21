@@ -55,6 +55,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="favoritesCollectionView" destination="ykE-71-79S" id="it4-rJ-afx"/>
+                        <segue destination="e9S-XA-wu6" kind="show" identifier="showCharacter" id="5bF-Nj-gMb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CDR-BP-u2d" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -87,7 +88,6 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="90" id="t5G-Th-khd"/>
                                                 </constraints>
-                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
@@ -210,7 +210,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GWl-3x-e3R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2169" y="-565"/>
+            <point key="canvasLocation" x="2194" y="-233"/>
         </scene>
         <!--Characters-->
         <scene sceneID="M6r-Fw-qKU">
@@ -339,4 +339,7 @@
         <image name="Favorites 01" width="32" height="32"/>
         <image name="RandomImage" width="195" height="157"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="5bF-Nj-gMb"/>
+    </inferredMetricsTieBreakers>
 </document>

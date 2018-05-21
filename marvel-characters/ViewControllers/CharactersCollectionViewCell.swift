@@ -18,6 +18,9 @@ class CharactersCollectionViewCell: UICollectionViewCell {
     let realm = try! Realm() // swiftlint:disable:this force_try
     var favorites: Results<Favorite>?
 
+    var id = 0
+    var thumbnail = ""
+
     override func awakeFromNib() {
         super.awakeFromNib()
         favorites = realm.objects(Favorite.self)
@@ -26,7 +29,9 @@ class CharactersCollectionViewCell: UICollectionViewCell {
     @IBAction func saveCharacter(_ sender: UIButton) {
 
         let favorite = Favorite()
-        favorite.name = characterName.text!
+        favorite.id = self.id
+        favorite.name = self.characterName.text!
+        favorite.thumbnail = self.thumbnail
 
         if (favorites?.contains(where: { $0.name == favorite.name }))! {
             do {

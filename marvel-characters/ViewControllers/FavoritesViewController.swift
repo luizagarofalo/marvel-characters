@@ -24,14 +24,13 @@ class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        favorites = realm.objects(Favorite.self)
         favoritesCollectionView.register(UINib(nibName: "CharactersCollectionViewCell", bundle: nil),
-                                          forCellWithReuseIdentifier: "CharactersCell")
+                                         forCellWithReuseIdentifier: "CharactersCell")
 
         let width = (view.frame.size.width - 50) / 2
         let layout = (favoritesCollectionView.collectionViewLayout as? UICollectionViewFlowLayout)!
         layout.itemSize = CGSize(width: width, height: width)
-
-        favorites = realm.objects(Favorite.self)
     }
 }
 
@@ -48,11 +47,28 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
         }
 
         cell.saveButton.setImage(#imageLiteral(resourceName: "Favorites 02"), for: .normal)
-
-        if let label = cell.viewWithTag(100) as? UILabel {
-            label.text = favorites?[indexPath.row].name
-        }
+        cell.characterName.text = favorites?[indexPath.row].name
+        cell.characterImage.sd_setImage(with: URL(string: (favorites?[indexPath.row].thumbnail)!),
+                                        placeholderImage: UIImage(named: "iconPlaceholder"),
+                                        options: .highPriority, completed: nil)
 
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let character = self.favorites![indexPath.row]
+        print("\(character.name) e \(character.id)")
+        self.performSegue(withIdentifier: "showCharacter", sender: character)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let characterViewController = segue.destination as? CharacterViewController {
+            if let character = sender as? Favorite {
+                characterViewController.title = character.name
+                characterViewController.id = character.id
+                characterViewController.requestsGateway = RequestsNetworkGateway()
+                characterViewController.loadData()
+            }
+        }
     }
 }

@@ -16,6 +16,19 @@ class CharacterViewController: UIViewController {
     @IBOutlet weak var comicsCollectionView: UICollectionView!
     @IBOutlet weak var seriesCollectionView: UICollectionView!
 
+    var character: [Result] = [] {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                if self?.character[0].description != "" {
+                    self?.characterDescription.text = self?.character[0].description
+                } else {
+                    self?.characterDescription.text = "No description available."
+                }
+                self?.characterThumbnail.sd_setImage(with: URL(string: (self?.character[0].thumbnail?.path)! + "." + (self?.character[0].thumbnail?.thumbnailExtension)!.rawValue), placeholderImage: UIImage(named: "iconPlaceholder"), options: .highPriority, completed: nil) // swiftlint:disable:this line_length
+            }
+        }
+    }
+
     var comics: [Result] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
@@ -51,8 +64,13 @@ class CharacterViewController: UIViewController {
     }
 
     func loadData() {
+        requestsGateway.loadCharacter(id: id, updateCharacter)
         requestsGateway.loadComics(id: id, updateComics)
         requestsGateway.loadSeries(id: id, updateSeries)
+    }
+
+    func updateCharacter(with results: [Result]) {
+        self.character = results
     }
 
     func updateComics(with results: [Result]) {

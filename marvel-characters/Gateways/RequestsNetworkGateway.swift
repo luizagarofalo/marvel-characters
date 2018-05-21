@@ -57,6 +57,28 @@ struct RequestsNetworkGateway: RequestsGateway {
         task.resume()
     }
 
+    func loadCharacter(id: Int, _ onComplete: @escaping ([Result]) -> Void) {
+        guard let url = URL(string: "https://gateway.marvel.com:443/v1/public/characters/\(id)?apikey=" +
+            "\(publicKey)&hash=\(hash)&ts=\(ts)") else { return }
+        let session = URLSession(configuration: URLSessionConfiguration.default)
+        let task = session.dataTask(with: url) { (data, _, error) in
+            if let error = error {
+                print(error)
+                return
+            }
+
+            guard let data = data else { return }
+
+            do {
+                let character = try JSONDecoder().decode(MarvelAPI.self, from: data)
+                onComplete(character.data.results)
+            } catch {
+                print("Error: \(error)")
+            }
+        }
+        task.resume()
+    }
+
     func loadComics(id: Int, _ onComplete: @escaping ([Result]) -> Void) {
         guard let url = URL(string: "https://gateway.marvel.com:443/v1/public/characters/\(id)/comics?apikey=" +
             "\(publicKey)&hash=\(hash)&ts=\(ts)") else { return }
