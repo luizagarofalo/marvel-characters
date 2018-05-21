@@ -49,6 +49,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="RandomImage" width="195" height="157"/>
+        <image name="RandomImage" width="391" height="314"/>
     </resources>
 </document>

@@ -35,92 +35,31 @@ struct RequestsNetworkGateway: RequestsGateway {
         return digestData
     }
 
-    func loadCharacters(limit: Int, offset: Int, _ onComplete: @escaping ([Result]) -> Void) {
+    func loadAll<T: Decodable>(ofType: Request, onComplete: @escaping (Response<T>) -> Void) {
+        switch ofType {
+        case .characters(let limit, let offset):
+            guard let url = URL(string: "https://gateway.marvel.com:443/v1/public/characters?orderBy=name&limit=" +
+                "\(limit)&offset=\(offset)&apikey=\(publicKey)&hash=\(hash)&ts=\(ts)") else { return }
 
-        guard let url = URL(string: "https://gateway.marvel.com:443/v1/public/characters?orderBy=name&limit=\(limit)" +
-            "&offset=\(offset)&apikey=\(publicKey)&hash=\(hash)&ts=\(ts)") else { return }
-        let session = URLSession(configuration: URLSessionConfiguration.default)
-        let task = session.dataTask(with: url) { (data, _, error) in
-            if let error = error {
-                print(error)
-                return
-            }
+            RequestAdapter.request(url, onComplete)
 
-            guard let data = data else { return }
+        case .character(let id):
+            guard let url = URL(string: "https://gateway.marvel.com:443/v1/public/characters/\(id)?apikey=" +
+                "\(publicKey)&hash=\(hash)&ts=\(ts)") else { return }
 
-            do {
-                let characters = try JSONDecoder().decode(MarvelAPI.self, from: data)
-                onComplete(characters.data.results)
-            } catch {
-                print("Error: \(error)")
-            }
+            RequestAdapter.request(url, onComplete)
+
+        case .comics(let id):
+            guard let url = URL(string: "https://gateway.marvel.com:443/v1/public/characters/\(id)/comics?apikey=" +
+                "\(publicKey)&hash=\(hash)&ts=\(ts)") else { return }
+
+            RequestAdapter.request(url, onComplete)
+
+        case .series(let id):
+            guard let url = URL(string: "https://gateway.marvel.com:443/v1/public/characters/\(id)/series?apikey=" +
+                "\(publicKey)&hash=\(hash)&ts=\(ts)") else { return }
+
+            RequestAdapter.request(url, onComplete)
         }
-        task.resume()
-    }
-
-    func loadCharacter(id: Int, _ onComplete: @escaping ([Result]) -> Void) {
-        guard let url = URL(string: "https://gateway.marvel.com:443/v1/public/characters/\(id)?apikey=" +
-            "\(publicKey)&hash=\(hash)&ts=\(ts)") else { return }
-        let session = URLSession(configuration: URLSessionConfiguration.default)
-        let task = session.dataTask(with: url) { (data, _, error) in
-            if let error = error {
-                print(error)
-                return
-            }
-
-            guard let data = data else { return }
-
-            do {
-                let character = try JSONDecoder().decode(MarvelAPI.self, from: data)
-                onComplete(character.data.results)
-            } catch {
-                print("Error: \(error)")
-            }
-        }
-        task.resume()
-    }
-
-    func loadComics(id: Int, _ onComplete: @escaping ([Result]) -> Void) {
-        guard let url = URL(string: "https://gateway.marvel.com:443/v1/public/characters/\(id)/comics?apikey=" +
-            "\(publicKey)&hash=\(hash)&ts=\(ts)") else { return }
-        let session = URLSession(configuration: URLSessionConfiguration.default)
-        let task = session.dataTask(with: url) { (data, _, error) in
-            if let error = error {
-                print(error)
-                return
-            }
-
-            guard let data = data else { return }
-
-            do {
-                let comics = try JSONDecoder().decode(MarvelAPI.self, from: data)
-                onComplete(comics.data.results)
-            } catch {
-                print("Error: \(error)")
-            }
-        }
-        task.resume()
-    }
-
-    func loadSeries(id: Int, _ onComplete: @escaping ([Result]) -> Void) {
-        guard let url = URL(string: "https://gateway.marvel.com:443/v1/public/characters/\(id)/series?apikey=" +
-            "\(publicKey)&hash=\(hash)&ts=\(ts)") else { return }
-        let session = URLSession(configuration: URLSessionConfiguration.default)
-        let task = session.dataTask(with: url) { (data, _, error) in
-            if let error = error {
-                print(error)
-                return
-            }
-
-            guard let data = data else { return }
-
-            do {
-                let series = try JSONDecoder().decode(MarvelAPI.self, from: data)
-                onComplete(series.data.results)
-            } catch {
-                print("Error: \(error)")
-            }
-        }
-        task.resume()
     }
 }

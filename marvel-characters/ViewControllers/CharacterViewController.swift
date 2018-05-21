@@ -53,6 +53,39 @@ class CharacterViewController: UIViewController {
         setCollectionView()
     }
 
+    func loadData() {
+        requestsGateway.loadAll(ofType: .character(id), onComplete: updateCharacter)
+        requestsGateway.loadAll(ofType: .comics(id), onComplete: updateComics)
+        requestsGateway.loadAll(ofType: .series(id), onComplete: updateSeries)
+    }
+
+    func updateCharacter(response: Response<MarvelAPI>) {
+        switch response {
+        case .positive(let character):
+            self.character += character.data.results
+        case .negative(let error):
+            print(error)
+        }
+    }
+
+    func updateComics(response: Response<MarvelAPI>) {
+        switch response {
+        case .positive(let comics):
+            self.comics += comics.data.results
+        case .negative(let error):
+            print(error)
+        }
+    }
+
+    func updateSeries(response: Response<MarvelAPI>) {
+        switch response {
+        case .positive(let series):
+            self.series += series.data.results
+        case .negative(let error):
+            print(error)
+        }
+    }
+
     func setCollectionView() {
         comicsCollectionView.register(UINib(nibName: "ComicsCollectionViewCell", bundle: nil),
                                       forCellWithReuseIdentifier: "ComicsCell")
@@ -64,24 +97,6 @@ class CharacterViewController: UIViewController {
         let seriesLayout = (seriesCollectionView.collectionViewLayout as? UICollectionViewFlowLayout)!
         comicsLayout.itemSize = CGSize(width: width, height: width)
         seriesLayout.itemSize = CGSize(width: width, height: width)
-    }
-
-    func loadData() {
-        requestsGateway.loadCharacter(id: id, updateCharacter)
-        requestsGateway.loadComics(id: id, updateComics)
-        requestsGateway.loadSeries(id: id, updateSeries)
-    }
-
-    func updateCharacter(with results: [Result]) {
-        self.character = results
-    }
-
-    func updateComics(with results: [Result]) {
-        self.comics = results
-    }
-
-    func updateSeries(with results: [Result]) {
-        self.series = results
     }
 }
 

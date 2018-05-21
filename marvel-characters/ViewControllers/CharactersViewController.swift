@@ -27,7 +27,6 @@ class CharactersViewController: UIViewController {
     var favorites: Results<Favorite>?
     var requestsGateway = RequestsNetworkGateway()
 
-    // Pagination:
     var isLoadingNext = false
     var limit = 20
     var offset = 0
@@ -52,11 +51,16 @@ class CharactersViewController: UIViewController {
     }
 
     func loadData() {
-        requestsGateway.loadCharacters(limit: limit, offset: offset, updateCharacters)
+        requestsGateway.loadAll(ofType: .characters(limit, offset), onComplete: updateCharacters)
     }
 
-    func updateCharacters(characters: [Result]) {
-        self.characters += characters
+    func updateCharacters(response: Response<MarvelAPI>) {
+        switch response {
+        case .positive(let characters):
+            self.characters += characters.data.results
+        case .negative(let error):
+            print(error)
+        }
     }
 }
 
