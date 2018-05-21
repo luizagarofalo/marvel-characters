@@ -21,11 +21,11 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="RandomImage" translatesAutoresizingMaskIntoConstraints="NO" id="VTF-KX-sb5">
-                        <rect key="frame" x="15" y="15" width="145" height="110"/>
+                        <rect key="frame" x="0.0" y="0.0" width="175" height="125"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Character" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6K-JQ-edW">
                         <rect key="frame" x="15" y="145" width="110" height="10"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -42,17 +42,17 @@
                     </button>
                 </subviews>
             </view>
-            <color key="backgroundColor" red="0.88235294119999996" green="0.91764705879999997" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.99607843137254903" green="0.99607843137254903" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="SpW-5z-T7n" firstAttribute="top" secondItem="VTF-KX-sb5" secondAttribute="bottom" constant="15" id="0CU-ng-7Yt"/>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="SpW-5z-T7n" secondAttribute="bottom" constant="15" id="DE0-gX-Bks"/>
-                <constraint firstAttribute="trailing" secondItem="VTF-KX-sb5" secondAttribute="trailing" constant="15" id="Kny-2g-Rqp"/>
+                <constraint firstAttribute="trailing" secondItem="VTF-KX-sb5" secondAttribute="trailing" id="Kny-2g-Rqp"/>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="o6K-JQ-edW" secondAttribute="bottom" constant="20" id="Ks0-l0-gu7"/>
-                <constraint firstItem="VTF-KX-sb5" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="M2T-Ci-5fK"/>
+                <constraint firstItem="VTF-KX-sb5" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="M2T-Ci-5fK"/>
                 <constraint firstItem="SpW-5z-T7n" firstAttribute="leading" secondItem="o6K-JQ-edW" secondAttribute="trailing" constant="15" id="YGH-Dd-oj5"/>
                 <constraint firstItem="o6K-JQ-edW" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="15" id="baW-o8-1IR"/>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="SpW-5z-T7n" secondAttribute="trailing" constant="15" id="jyk-JY-zwS"/>
-                <constraint firstItem="VTF-KX-sb5" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="x7b-QY-EFF"/>
+                <constraint firstItem="VTF-KX-sb5" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="x7b-QY-EFF"/>
                 <constraint firstItem="SpW-5z-T7n" firstAttribute="centerY" secondItem="o6K-JQ-edW" secondAttribute="centerY" id="znx-zb-hZv"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>

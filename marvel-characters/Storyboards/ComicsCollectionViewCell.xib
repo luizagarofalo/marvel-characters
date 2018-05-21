@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="RandomImage" translatesAutoresizingMaskIntoConstraints="NO" id="b6U-aC-zAD">
-                        <rect key="frame" x="20" y="20" width="135" height="100.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="175" height="120.5"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comics Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mcX-Qn-Upk">
                         <rect key="frame" x="20" y="140.5" width="135" height="15"/>
@@ -30,15 +30,15 @@
                     </label>
                 </subviews>
             </view>
-            <color key="backgroundColor" red="0.88235294119999996" green="0.91764705879999997" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.99607843137254903" green="0.99607843137254903" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="b6U-aC-zAD" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="3rJ-LP-C2A"/>
-                <constraint firstItem="b6U-aC-zAD" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="20" id="6CJ-qI-8DN"/>
+                <constraint firstItem="b6U-aC-zAD" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="3rJ-LP-C2A"/>
+                <constraint firstItem="b6U-aC-zAD" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="6CJ-qI-8DN"/>
                 <constraint firstItem="mcX-Qn-Upk" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="PCu-pz-oQs"/>
                 <constraint firstItem="mcX-Qn-Upk" firstAttribute="top" secondItem="b6U-aC-zAD" secondAttribute="bottom" constant="20" id="dnY-O9-C0F"/>
                 <constraint firstAttribute="bottom" secondItem="mcX-Qn-Upk" secondAttribute="bottom" constant="20" id="fWv-hI-8Vw"/>
                 <constraint firstAttribute="trailing" secondItem="mcX-Qn-Upk" secondAttribute="trailing" constant="20" id="oz9-4b-XzR"/>
-                <constraint firstAttribute="trailing" secondItem="b6U-aC-zAD" secondAttribute="trailing" constant="20" id="t5B-2V-TL6"/>
+                <constraint firstAttribute="trailing" secondItem="b6U-aC-zAD" secondAttribute="trailing" id="t5B-2V-TL6"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <connections>

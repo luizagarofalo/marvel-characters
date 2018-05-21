@@ -50,7 +50,10 @@ class CharacterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setCollectionView()
+    }
 
+    func setCollectionView() {
         comicsCollectionView.register(UINib(nibName: "ComicsCollectionViewCell", bundle: nil),
                                       forCellWithReuseIdentifier: "ComicsCell")
         seriesCollectionView.register(UINib(nibName: "SeriesCollectionViewCell", bundle: nil),
@@ -58,8 +61,8 @@ class CharacterViewController: UIViewController {
 
         let width = 175
         let comicsLayout = (comicsCollectionView.collectionViewLayout as? UICollectionViewFlowLayout)!
-        comicsLayout.itemSize = CGSize(width: width, height: width)
         let seriesLayout = (seriesCollectionView.collectionViewLayout as? UICollectionViewFlowLayout)!
+        comicsLayout.itemSize = CGSize(width: width, height: width)
         seriesLayout.itemSize = CGSize(width: width, height: width)
     }
 
@@ -101,7 +104,10 @@ extension CharacterViewController: UICollectionViewDataSource, UICollectionViewD
             }
 
             cell.comicsName.text = comics[indexPath.row].title
-            cell.comicsImage.sd_setImage(with: URL(string: (comics[indexPath.row].thumbnail?.path)! + "." + (comics[indexPath.row].thumbnail?.thumbnailExtension)!.rawValue), placeholderImage: UIImage(named: "iconPlaceholder"), options: .highPriority, completed: nil) // swiftlint:disable:this line_length
+            cell.comicsImage.sd_setImage(with: URL(string: (comics[indexPath.row].thumbnail?.path)! + "." +
+                (comics[indexPath.row].thumbnail?.thumbnailExtension)!.rawValue),
+                                         placeholderImage: UIImage(named: "iconPlaceholder"),
+                                         options: .highPriority, completed: nil)
 
             return cell
         } else {
@@ -111,7 +117,10 @@ extension CharacterViewController: UICollectionViewDataSource, UICollectionViewD
             }
 
             cell.seriesName.text = series[indexPath.row].title
-            cell.seriesImage.sd_setImage(with: URL(string: (series[indexPath.row].thumbnail?.path)! + "." + (series[indexPath.row].thumbnail?.thumbnailExtension)!.rawValue), placeholderImage: UIImage(named: "iconPlaceholder"), options: .highPriority, completed: nil) // swiftlint:disable:this line_length
+            cell.seriesImage.sd_setImage(with: URL(string: (series[indexPath.row].thumbnail?.path)! + "." +
+                (series[indexPath.row].thumbnail?.thumbnailExtension)!.rawValue),
+                                         placeholderImage: UIImage(named: "iconPlaceholder"),
+                                         options: .highPriority, completed: nil)
 
             return cell
         }
