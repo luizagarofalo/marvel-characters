@@ -12,21 +12,21 @@ import UIKit
 
 class CharacterViewController: UIViewController {
 
-    @IBOutlet weak var characterThumbnail: UIImageView!
-    @IBOutlet weak var characterDescription: UITextView!
-    @IBOutlet weak var comicsLabel: UILabel!
-    @IBOutlet weak var seriesLabel: UILabel!
-    @IBOutlet weak var comicsCollectionView: UICollectionView!
-    @IBOutlet weak var seriesCollectionView: UICollectionView!
-    @IBOutlet weak var errorMessageView: UIView!
-    var saveButton: UIBarButtonItem!
+    @IBOutlet weak private var characterThumbnail: UIImageView!
+    @IBOutlet weak private var characterDescription: UITextView!
+    @IBOutlet weak private var comicsLabel: UILabel!
+    @IBOutlet weak private var seriesLabel: UILabel!
+    @IBOutlet weak private var comicsCollectionView: UICollectionView!
+    @IBOutlet weak private var seriesCollectionView: UICollectionView!
+    @IBOutlet weak private var errorMessageView: UIView!
+    private var saveButton: UIBarButtonItem!
 
-    let realm = try! Realm() // swiftlint:disable:this force_try
-    var favorites: Results<Favorite>?
+    private let realm = try! Realm() // swiftlint:disable:this force_try
+    private var favorites: Results<Favorite>?
     var requestsGateway: RequestsGateway!
     var id = 0
 
-    var character: [Result] = [] {
+    private var character: [Character] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 if self?.character[0].description != "" {
@@ -42,7 +42,7 @@ class CharacterViewController: UIViewController {
         }
     }
 
-    var comics: [Result] = [] {
+    private var comics: [Comic] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 if self?.comics.count != 0 {
@@ -54,7 +54,7 @@ class CharacterViewController: UIViewController {
         }
     }
 
-    var series: [Result] = [] {
+    private var series: [Series] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 if self?.series.count != 0 {
@@ -82,40 +82,15 @@ class CharacterViewController: UIViewController {
         requestsGateway.loadAll(ofType: .series(id), onComplete: updateSeries)
     }
 
-    func updateCharacter(response: Response<MarvelAPI>) {
-        switch response {
-        case .positive(let character):
-            DispatchQueue.main.async {
-                self.errorMessageView.isHidden = true
-                self.character += character.data.results
-            }
-        case .negative(let error):
-            DispatchQueue.main.async {
-                self.errorMessageView.isHidden = false
-                print(error)
-            }
-        }
+    private func initialSetup() {
+        self.comicsLabel.isHidden = true
+        self.seriesLabel.isHidden = true
+        self.comicsCollectionView.isHidden = true
+        self.seriesCollectionView.isHidden = true
+        errorMessageView.isHidden = true
     }
 
-    func updateComics(response: Response<MarvelAPI>) {
-        switch response {
-        case .positive(let comics):
-            self.comics += comics.data.results
-        case .negative(let error):
-            print(error)
-        }
-    }
-
-    func updateSeries(response: Response<MarvelAPI>) {
-        switch response {
-        case .positive(let series):
-            self.series += series.data.results
-        case .negative(let error):
-            print(error)
-        }
-    }
-
-    @objc func saveCharacter(sender: UIBarButtonItem) {
+    @objc private func saveCharacter(sender: UIBarButtonItem) {
         let favorite = Favorite()
         favorite.id = self.id
         favorite.name = self.title!
@@ -147,7 +122,7 @@ class CharacterViewController: UIViewController {
         }
     }
 
-    func setCollectionView() {
+    private func setCollectionView() {
         comicsCollectionView.register(UINib(nibName: "ComicsCollectionViewCell", bundle: nil),
                                       forCellWithReuseIdentifier: "ComicsCell")
         seriesCollectionView.register(UINib(nibName: "SeriesCollectionViewCell", bundle: nil),
@@ -160,7 +135,7 @@ class CharacterViewController: UIViewController {
         seriesLayout.itemSize = CGSize(width: width, height: width)
     }
 
-    func setUIBarButtonItem() {
+    private func setUIBarButtonItem() {
         if (favorites?.contains(where: { $0.name == self.title }))! {
             saveButton = UIBarButtonItem(image: #imageLiteral(resourceName: "Favorites 02"),
                                          style: .plain,
@@ -176,12 +151,37 @@ class CharacterViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = saveButton
     }
 
-    func initialSetup() {
-        self.comicsLabel.isHidden = true
-        self.seriesLabel.isHidden = true
-        self.comicsCollectionView.isHidden = true
-        self.seriesCollectionView.isHidden = true
-        errorMessageView.isHidden = true
+    private func updateCharacter(response: Response<MarvelAPI<Character>>) {
+        switch response {
+        case .positive(let character):
+            DispatchQueue.main.async {
+                self.errorMessageView.isHidden = true
+                self.character += character.data.items
+            }
+        case .negative(let error):
+            DispatchQueue.main.async {
+                self.errorMessageView.isHidden = false
+                print(error)
+            }
+        }
+    }
+
+    private func updateComics(response: Response<MarvelAPI<Comic>>) {
+        switch response {
+        case .positive(let comics):
+            self.comics += comics.data.items
+        case .negative(let error):
+            print(error)
+        }
+    }
+
+    private func updateSeries(response: Response<MarvelAPI<Series>>) {
+        switch response {
+        case .positive(let series):
+            self.series += series.data.items
+        case .negative(let error):
+            print(error)
+        }
     }
 }
 

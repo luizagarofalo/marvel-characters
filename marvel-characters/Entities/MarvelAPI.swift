@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct MarvelAPI: Decodable {
-    let data: DataClass
+struct MarvelAPI<T: Decodable>: Decodable {
+    let data: DataClass<T>
 }

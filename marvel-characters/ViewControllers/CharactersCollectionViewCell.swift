@@ -15,8 +15,8 @@ class CharactersCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var characterName: UILabel!
     @IBOutlet weak var saveButton: UIButton!
 
-    let realm = try! Realm() // swiftlint:disable:this force_try
-    var favorites: Results<Favorite>?
+    private let realm = try! Realm() // swiftlint:disable:this force_try
+    private var favorites: Results<Favorite>?
 
     var id = 0
     var thumbnail = ""
@@ -26,8 +26,7 @@ class CharactersCollectionViewCell: UICollectionViewCell {
         favorites = realm.objects(Favorite.self)
     }
 
-    @IBAction func saveCharacter(_ sender: UIButton) {
-
+    @IBAction private func saveCharacter(_ sender: UIButton) {
         let favorite = Favorite()
         favorite.id = self.id
         favorite.name = self.characterName.text!

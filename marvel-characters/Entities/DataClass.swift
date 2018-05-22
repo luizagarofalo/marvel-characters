@@ -8,6 +8,10 @@
 
 import Foundation
 
-struct DataClass: Decodable {
-    let results: [Result]
+struct DataClass<T: Decodable>: Decodable {
+    let items: [T]
+
+    enum CodingKeys: String, CodingKey {
+        case items = "results"
+    }
 }

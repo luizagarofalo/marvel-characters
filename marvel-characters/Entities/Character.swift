@@ -8,14 +8,14 @@
 
 import Foundation
 
-struct Result: Decodable {
-    let id: Int?
+struct Character: Decodable {
+    let id: Int
     let digitalID: Int?
     let name, description, title: String?
     let thumbnail: Thumbnail?
-}
 
-enum CodingKeys: String, CodingKey {
-    case digitalID = "digitalId"
-    case description, id, name, title, thumbnail
+    enum CodingKeys: String, CodingKey {
+        case digitalID = "digitalId"
+        case description, id, name, title, thumbnail
+    }
 }

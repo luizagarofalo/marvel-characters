@@ -12,12 +12,14 @@ import UIKit
 
 class CharactersViewController: UIViewController {
 
-    @IBOutlet weak var charactersCollectionView: UICollectionView!
-    @IBOutlet weak var errorMessageView: UIView!
+    @IBOutlet weak private var charactersCollectionView: UICollectionView!
+    @IBOutlet weak private var errorMessageView: UIView!
 
-    let realm = try! Realm() // swiftlint:disable:this force_try
+    private let realm = try! Realm() // swiftlint:disable:this force_try
+    private var favorites: Results<Favorite>?
+    private var requestsGateway = RequestsNetworkGateway()
 
-    var characters: [Result] = [] {
+    private var characters: [Character] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 self?.charactersCollectionView.reloadData()
@@ -25,12 +27,9 @@ class CharactersViewController: UIViewController {
         }
     }
 
-    var favorites: Results<Favorite>?
-    var requestsGateway = RequestsNetworkGateway()
-
-    var isLoadingNext = false
-    var limit = 20
-    var offset = 0
+    private var isLoadingNext = false
+    private var limit = 20
+    private var offset = 0
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -45,26 +44,15 @@ class CharactersViewController: UIViewController {
         loadData()
     }
 
-    func loadData() {
+    @IBAction private func retry(_ sender: UIButton) {
+        loadData()
+    }
+
+    private func loadData() {
         requestsGateway.loadAll(ofType: .characters(limit, offset), onComplete: updateCharacters)
     }
 
-    func updateCharacters(response: Response<MarvelAPI>) {
-        switch response {
-        case .positive(let characters):
-            DispatchQueue.main.async {
-                self.errorMessageView.isHidden = true
-                self.characters += characters.data.results
-            }
-        case .negative(let error):
-            DispatchQueue.main.async {
-                self.errorMessageView.isHidden = false
-                print(error)
-            }
-        }
-    }
-
-    func setCollectionView() {
+    private func setCollectionView() {
         charactersCollectionView.register(UINib(nibName: "CharactersCollectionViewCell", bundle: nil),
                                           forCellWithReuseIdentifier: "CharactersCell")
 
@@ -73,8 +61,19 @@ class CharactersViewController: UIViewController {
         layout.itemSize = CGSize(width: width, height: width)
     }
 
-    @IBAction func retry(_ sender: UIButton) {
-        loadData()
+    private func updateCharacters(response: Response<MarvelAPI<Character>>) {
+        switch response {
+        case .positive(let characters):
+            DispatchQueue.main.async {
+                self.errorMessageView.isHidden = true
+                self.characters += characters.data.items
+            }
+        case .negative(let error):
+            DispatchQueue.main.async {
+                self.errorMessageView.isHidden = false
+                print(error)
+            }
+        }
     }
 }
 
@@ -94,7 +93,7 @@ extension CharactersViewController: UICollectionViewDataSource, UICollectionView
         let thumbnail = ((characters[indexPath.row].thumbnail?.path)! + "." +
             (characters[indexPath.row].thumbnail?.thumbnailExtension)!.rawValue)
 
-        cell.id = characters[indexPath.row].id!
+        cell.id = characters[indexPath.row].id
         cell.thumbnail = thumbnail
         cell.characterName.text = characters[indexPath.row].name
         cell.characterImage.sd_setImage(with: URL(string: thumbnail),
@@ -132,9 +131,9 @@ extension CharactersViewController: UICollectionViewDataSource, UICollectionView
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let characterViewController = segue.destination as? CharacterViewController {
-            if let character = sender as? Result {
+            if let character = sender as? Character {
                 characterViewController.title = character.name!
-                characterViewController.id = character.id!
+                characterViewController.id = character.id
                 characterViewController.requestsGateway = RequestsNetworkGateway()
                 characterViewController.loadData()
             }

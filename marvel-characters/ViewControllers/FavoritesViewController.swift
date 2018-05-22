@@ -11,11 +11,11 @@ import UIKit
 
 class FavoritesViewController: UIViewController {
 
-    @IBOutlet weak var favoritesCollectionView: UICollectionView!
-    @IBOutlet weak var errorMessageView: UIView!
+    @IBOutlet weak private var favoritesCollectionView: UICollectionView!
+    @IBOutlet weak private var errorMessageView: UIView!
 
-    let realm = try! Realm() // swiftlint:disable:this force_try
-    var favorites: Results<Favorite>?
+    private let realm = try! Realm() // swiftlint:disable:this force_try
+    private var favorites: Results<Favorite>?
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -29,8 +29,11 @@ class FavoritesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         favorites = realm.objects(Favorite.self)
+        setCollectionView()
+    }
+
+    private func setCollectionView() {
         favoritesCollectionView.register(UINib(nibName: "CharactersCollectionViewCell", bundle: nil),
                                          forCellWithReuseIdentifier: "CharactersCell")
 
