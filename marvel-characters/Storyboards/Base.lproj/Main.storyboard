@@ -293,8 +293,10 @@
                         <outlet property="characterDescription" destination="prW-Bg-voE" id="SXW-FZ-jsZ"/>
                         <outlet property="characterThumbnail" destination="TGv-Io-JS3" id="J78-IU-PGI"/>
                         <outlet property="comicsCollectionView" destination="AXk-de-pRx" id="aLP-Vd-xpD"/>
+                        <outlet property="comicsLabel" destination="BUJ-tF-9uY" id="98O-sV-TKI"/>
                         <outlet property="errorMessageView" destination="zdg-3N-mmS" id="xAH-O1-5CH"/>
                         <outlet property="seriesCollectionView" destination="VEH-ok-HlE" id="68k-FR-7Pr"/>
+                        <outlet property="seriesLabel" destination="Vey-GO-1ED" id="ISZ-kC-BiR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GWl-3x-e3R" userLabel="First Responder" sceneMemberID="firstResponder"/>

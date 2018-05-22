@@ -14,6 +14,8 @@ class CharacterViewController: UIViewController {
 
     @IBOutlet weak var characterThumbnail: UIImageView!
     @IBOutlet weak var characterDescription: UITextView!
+    @IBOutlet weak var comicsLabel: UILabel!
+    @IBOutlet weak var seriesLabel: UILabel!
     @IBOutlet weak var comicsCollectionView: UICollectionView!
     @IBOutlet weak var seriesCollectionView: UICollectionView!
     @IBOutlet weak var errorMessageView: UIView!
@@ -21,6 +23,8 @@ class CharacterViewController: UIViewController {
 
     let realm = try! Realm() // swiftlint:disable:this force_try
     var favorites: Results<Favorite>?
+    var requestsGateway: RequestsGateway!
+    var id = 0
 
     var character: [Result] = [] {
         didSet {
@@ -30,7 +34,10 @@ class CharacterViewController: UIViewController {
                 } else {
                     self?.characterDescription.text = "No description available."
                 }
-                self?.characterThumbnail.sd_setImage(with: URL(string: (self?.character[0].thumbnail?.path)! + "." + (self?.character[0].thumbnail?.thumbnailExtension)!.rawValue), placeholderImage: UIImage(named: "iconPlaceholder"), options: .highPriority, completed: nil) // swiftlint:disable:this line_length
+                self?.characterThumbnail.sd_setImage(with: URL(string: (self?.character[0].thumbnail?.path)! + "." +
+                    (self?.character[0].thumbnail?.thumbnailExtension)!.rawValue),
+                                                     placeholderImage: UIImage(named: "iconPlaceholder"),
+                                                     options: .highPriority, completed: nil)
             }
         }
     }
@@ -38,7 +45,11 @@ class CharacterViewController: UIViewController {
     var comics: [Result] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
-                self?.comicsCollectionView.reloadData()
+                if self?.comics.count != 0 {
+                    self?.comicsLabel.isHidden = false
+                    self?.comicsCollectionView.isHidden = false
+                    self?.comicsCollectionView.reloadData()
+                }
             }
         }
     }
@@ -46,13 +57,14 @@ class CharacterViewController: UIViewController {
     var series: [Result] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
-                self?.seriesCollectionView.reloadData()
+                if self?.series.count != 0 {
+                    self?.seriesLabel.isHidden = false
+                    self?.seriesCollectionView.isHidden = false
+                    self?.seriesCollectionView.reloadData()
+                }
             }
         }
     }
-
-    var id = 0
-    var requestsGateway: RequestsGateway!
 
     override func viewWillAppear(_ animated: Bool) {
         setCollectionView()
@@ -61,7 +73,7 @@ class CharacterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         favorites = realm.objects(Favorite.self)
-        errorMessageView.isHidden = true
+        initialSetup()
     }
 
     func loadData() {
@@ -162,6 +174,14 @@ class CharacterViewController: UIViewController {
         }
 
         self.navigationItem.rightBarButtonItem = saveButton
+    }
+
+    func initialSetup() {
+        self.comicsLabel.isHidden = true
+        self.seriesLabel.isHidden = true
+        self.comicsCollectionView.isHidden = true
+        self.seriesCollectionView.isHidden = true
+        errorMessageView.isHidden = true
     }
 }
 
