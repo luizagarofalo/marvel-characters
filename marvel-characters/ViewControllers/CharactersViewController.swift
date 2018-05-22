@@ -13,6 +13,7 @@ import UIKit
 class CharactersViewController: UIViewController {
 
     @IBOutlet weak var charactersCollectionView: UICollectionView!
+    @IBOutlet weak var errorMessageView: UIView!
 
     let realm = try! Realm() // swiftlint:disable:this force_try
 
@@ -38,15 +39,9 @@ class CharactersViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        charactersCollectionView.register(UINib(nibName: "CharactersCollectionViewCell", bundle: nil),
-                                          forCellWithReuseIdentifier: "CharactersCell")
-
-        let width = (view.frame.size.width - 50) / 2
-        let layout = (charactersCollectionView.collectionViewLayout as? UICollectionViewFlowLayout)!
-        layout.itemSize = CGSize(width: width, height: width)
-
+        errorMessageView.isHidden = true
         favorites = realm.objects(Favorite.self)
+        setCollectionView()
         loadData()
     }
 
@@ -57,10 +52,29 @@ class CharactersViewController: UIViewController {
     func updateCharacters(response: Response<MarvelAPI>) {
         switch response {
         case .positive(let characters):
-            self.characters += characters.data.results
+            DispatchQueue.main.async {
+                self.errorMessageView.isHidden = true
+                self.characters += characters.data.results
+            }
         case .negative(let error):
-            print(error)
+            DispatchQueue.main.async {
+                self.errorMessageView.isHidden = false
+                print(error)
+            }
         }
+    }
+
+    func setCollectionView() {
+        charactersCollectionView.register(UINib(nibName: "CharactersCollectionViewCell", bundle: nil),
+                                          forCellWithReuseIdentifier: "CharactersCell")
+
+        let width = (view.frame.size.width - 50) / 2
+        let layout = (charactersCollectionView.collectionViewLayout as? UICollectionViewFlowLayout)!
+        layout.itemSize = CGSize(width: width, height: width)
+    }
+
+    @IBAction func retry(_ sender: UIButton) {
+        loadData()
     }
 }
 

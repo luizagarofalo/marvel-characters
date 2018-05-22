@@ -12,6 +12,7 @@ import UIKit
 class FavoritesViewController: UIViewController {
 
     @IBOutlet weak var favoritesCollectionView: UICollectionView!
+    @IBOutlet weak var errorMessageView: UIView!
 
     let realm = try! Realm() // swiftlint:disable:this force_try
     var favorites: Results<Favorite>?
@@ -19,6 +20,11 @@ class FavoritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         favoritesCollectionView.reloadData()
+        if favorites?.count != 0 {
+            errorMessageView.isHidden = true
+        } else {
+            errorMessageView.isHidden = false
+        }
     }
 
     override func viewDidLoad() {

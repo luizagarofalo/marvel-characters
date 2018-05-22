@@ -15,6 +15,7 @@ class CharacterViewController: UIViewController {
     @IBOutlet weak var characterDescription: UITextView!
     @IBOutlet weak var comicsCollectionView: UICollectionView!
     @IBOutlet weak var seriesCollectionView: UICollectionView!
+    @IBOutlet weak var errorMessageView: UIView!
 
     var character: [Result] = [] {
         didSet {
@@ -50,6 +51,7 @@ class CharacterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        errorMessageView.isHidden = true
         setCollectionView()
     }
 
@@ -62,9 +64,15 @@ class CharacterViewController: UIViewController {
     func updateCharacter(response: Response<MarvelAPI>) {
         switch response {
         case .positive(let character):
-            self.character += character.data.results
+            DispatchQueue.main.async {
+                self.errorMessageView.isHidden = true
+                self.character += character.data.results
+            }
         case .negative(let error):
-            print(error)
+            DispatchQueue.main.async {
+                self.errorMessageView.isHidden = false
+                print(error)
+            }
         }
     }
 
