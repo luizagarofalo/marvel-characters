@@ -1,5 +1,5 @@
 //
-//  Result.swift
+//  Character.swift
 //  marvel-characters
 //
 //  Created by Luiza Collado Garofalo on 15/05/18.

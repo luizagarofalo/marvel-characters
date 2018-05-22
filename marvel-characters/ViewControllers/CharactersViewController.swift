@@ -61,7 +61,7 @@ class CharactersViewController: UIViewController {
         layout.itemSize = CGSize(width: width, height: width)
     }
 
-    private func updateCharacters(response: Response<MarvelAPI<Character>>) {
+    private func updateCharacters(response: Result<MarvelAPI<Character>>) {
         switch response {
         case .positive(let characters):
             DispatchQueue.main.async {

@@ -1,5 +1,5 @@
 //
-//  Response.swift
+//  Result.swift
 //  marvel-characters
 //
 //  Created by Luiza Collado Garofalo on 18/05/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Response<T> {
+enum Result<T> {
     case positive(T)
     case negative(Error)
 }

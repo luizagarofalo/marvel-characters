@@ -35,7 +35,7 @@ struct RequestsNetworkGateway: RequestsGateway {
         return digestData
     }
 
-    func loadAll<T: Decodable>(ofType: Request, onComplete: @escaping (Response<T>) -> Void) {
+    func loadAll<T: Decodable>(ofType: Request, onComplete: @escaping (Result<T>) -> Void) {
         switch ofType {
         case .characters(let limit, let offset):
             guard let url = URL(string: "https://gateway.marvel.com:443/v1/public/characters?orderBy=name&limit=" +

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class RequestAdapter {
-    static func request<T: Decodable>(_ url: URL, _ onComplete: @escaping (Response<T>) -> Void) {
+    static func request<T: Decodable>(_ url: URL, _ onComplete: @escaping (Result<T>) -> Void) {
         let session = URLSession(configuration: URLSessionConfiguration.default)
         let task = session.dataTask(with: url) { (data, _, requestError) in
             if let requestError = requestError {

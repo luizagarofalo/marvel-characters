@@ -9,5 +9,5 @@
 import Foundation
 
 protocol RequestsGateway {
-    func loadAll<T: Decodable>(ofType: Request, onComplete: @escaping (Response<T>) -> Void)
+    func loadAll<T: Decodable>(ofType: Request, onComplete: @escaping (Result<T>) -> Void)
 }

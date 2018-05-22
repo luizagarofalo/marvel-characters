@@ -151,7 +151,7 @@ class CharacterViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = saveButton
     }
 
-    private func updateCharacter(response: Response<MarvelAPI<Character>>) {
+    private func updateCharacter(response: Result<MarvelAPI<Character>>) {
         switch response {
         case .positive(let character):
             DispatchQueue.main.async {
@@ -166,7 +166,7 @@ class CharacterViewController: UIViewController {
         }
     }
 
-    private func updateComics(response: Response<MarvelAPI<Comic>>) {
+    private func updateComics(response: Result<MarvelAPI<Comic>>) {
         switch response {
         case .positive(let comics):
             self.comics += comics.data.items
@@ -175,7 +175,7 @@ class CharacterViewController: UIViewController {
         }
     }
 
-    private func updateSeries(response: Response<MarvelAPI<Series>>) {
+    private func updateSeries(response: Result<MarvelAPI<Series>>) {
         switch response {
         case .positive(let series):
             self.series += series.data.items
