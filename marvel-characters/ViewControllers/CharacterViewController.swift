@@ -6,6 +6,7 @@
 //  Copyright © 2018 Luiza Garofalo. All rights reserved.
 //
 
+import RealmSwift
 import SDWebImage
 import UIKit
 
@@ -16,6 +17,10 @@ class CharacterViewController: UIViewController {
     @IBOutlet weak var comicsCollectionView: UICollectionView!
     @IBOutlet weak var seriesCollectionView: UICollectionView!
     @IBOutlet weak var errorMessageView: UIView!
+    var saveButton: UIBarButtonItem!
+
+    let realm = try! Realm() // swiftlint:disable:this force_try
+    var favorites: Results<Favorite>?
 
     var character: [Result] = [] {
         didSet {
@@ -49,10 +54,14 @@ class CharacterViewController: UIViewController {
     var id = 0
     var requestsGateway: RequestsGateway!
 
+    override func viewWillAppear(_ animated: Bool) {
+        setCollectionView()
+        setUIBarButtonItem()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        favorites = realm.objects(Favorite.self)
         errorMessageView.isHidden = true
-        setCollectionView()
     }
 
     func loadData() {
@@ -94,6 +103,38 @@ class CharacterViewController: UIViewController {
         }
     }
 
+    @objc func saveCharacter(sender: UIBarButtonItem) {
+        let favorite = Favorite()
+        favorite.id = self.id
+        favorite.name = self.title!
+        favorite.thumbnail = (character[0].thumbnail?.path)! + "." +
+            (character[0].thumbnail?.thumbnailExtension)!.rawValue
+
+        if (favorites?.contains(where: { $0.name == favorite.name }))! {
+            do {
+                try realm.write {
+                    let character = realm.objects(Favorite.self).filter("name = %@", favorite.name)
+                    realm.delete(character)
+                    saveButton.image = #imageLiteral(resourceName: "Favorites 01")
+                    print("Character removed from favorites.")
+                }
+            } catch {
+                print("Error removing character from favorites: \(error)")
+            }
+        } else {
+
+            do {
+                try realm.write {
+                    realm.add(favorite)
+                    saveButton.image = #imageLiteral(resourceName: "Favorites 02")
+                    print("Character added to favorites.")
+                }
+            } catch {
+                print("Error adding character to favorites: \(error).")
+            }
+        }
+    }
+
     func setCollectionView() {
         comicsCollectionView.register(UINib(nibName: "ComicsCollectionViewCell", bundle: nil),
                                       forCellWithReuseIdentifier: "ComicsCell")
@@ -105,6 +146,22 @@ class CharacterViewController: UIViewController {
         let seriesLayout = (seriesCollectionView.collectionViewLayout as? UICollectionViewFlowLayout)!
         comicsLayout.itemSize = CGSize(width: width, height: width)
         seriesLayout.itemSize = CGSize(width: width, height: width)
+    }
+
+    func setUIBarButtonItem() {
+        if (favorites?.contains(where: { $0.name == self.title }))! {
+            saveButton = UIBarButtonItem(image: #imageLiteral(resourceName: "Favorites 02"),
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(saveCharacter(sender:)))
+        } else {
+            saveButton = UIBarButtonItem(image: #imageLiteral(resourceName: "Favorites 01"),
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(saveCharacter(sender:)))
+        }
+
+        self.navigationItem.rightBarButtonItem = saveButton
     }
 }
 
